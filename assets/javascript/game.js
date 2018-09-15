@@ -10,7 +10,7 @@ var bulbasaur = {
     hp: 45,
     attack1: "Tackle",
     attack2: "Vine Whip",
-    // attack3: "Leech Seed",
+    attack2Icon: $("#vinewhip"),
     speed: 45,
     attack: 7,
     special: 9
@@ -21,7 +21,7 @@ var charmander = {
     hp: 39,
     attack1: "Scratch",
     attack2: "Ember",
-    // attack3: "Growl",
+    attack2Icon: $("#ember"),
     speed: 65,
     attack: 8,
     special: 8
@@ -32,7 +32,7 @@ var squirtle = {
     hp: 44,
     attack1: "Tackle",
     attack2: "Bubble",
-    // attack3: "Tail Whip",
+    attack2Icon: $("#bubble"),
     speed: 43,
     attack: 7,
     special: 8
@@ -43,7 +43,7 @@ var pikachu = {
     hp: 35,
     attack1: "Quick Attack",
     attack2: "Thundershock",
-    // attack3: "Thunder Wave",
+    attack2Icon: $("#thundershock"),
     speed: 90,
     attack: 8,
     special: 8
@@ -54,6 +54,8 @@ var pokemon1
 var pokemon2
 var pokemon3
 var currentOpponent
+var position
+var positionOpponent
 
 // functions
 //--------------------------------------------------------------
@@ -79,6 +81,7 @@ function dispersePokemon() {
     $("#attacks").prepend("Attacks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a) " + usersPokemon.attack1 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s) " + usersPokemon.attack2);
     // $("#attack3").prepend("c) " + usersPokemon.attack3);
     hasChosenPokemon = true;
+    usersPokemon.icon.addClass("flipped")
     usersPokemon.icon.animate({ top: "-=37.5%" }, "normal");
     usersPokemon.icon.animate({ left: "-=51.6%" }, "normal");
     pokemon1.icon.animate({ top: "-=25%" }, "normal");
@@ -88,29 +91,81 @@ function dispersePokemon() {
 }
 
 function battleCheck() {
-    if ((horizontalPosition === 6) && (verticalPosition === 1)) {
+    if ((horizontalPosition === 6) && (verticalPosition === 1) && (pokemon1.icon.css('opacity') > 0) ) {
         inBattle = true;
         currentOpponent = pokemon1
-        $("#gameText").prepend("Health is displayed above.");
-    } if ((horizontalPosition === 3) && (verticalPosition === 3)) {
+        battleReact();
+        battleSetup();
+        position="position1";
+        positionOpponent="positionOpponent1"
+    } if ((horizontalPosition === 3) && (verticalPosition === 3) && (pokemon3.icon.css('opacity') > 0)) {
         inBattle = true;
         currentOpponent = pokemon3
-        $("#gameText").prepend("Health is displayed above.");
-    } if ((horizontalPosition === 4) && (verticalPosition === 6)) {
+        battleReact();
+        battleSetup();
+        position="position3";
+        positionOpponent="positionOpponent3";
+    } if ((horizontalPosition === 4) && (verticalPosition === 6) && (pokemon2.icon.css('opacity') > 0)) {
         inBattle = true;
         currentOpponent = pokemon2
-        $("#gameText").prepend("Health is displayed above.");
+        battleReact();
+        battleSetup();
+        position="position2";
+        positionOpponent="positionOpponent2";
     }
 };
+
+function battleSetup (){
+    $("#gameText").prepend("Health is displayed above.");
+    usersPokemon.attack2Icon.removeClass(position)
+    currentOpponent.attack2Icon.removeClass(positionOpponent)
+    $("#pokemonHP").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "HP = " + currentOpponent.hp);
+}
+
+function battleReact(){
+    usersPokemon.icon.animate({left:"-=8.6%"}, "fast")
+}
+
+function attackAnimation (){
+    usersPokemon.icon.animate({left:"+=3.6%"}, "fast")
+    usersPokemon.icon.animate({left:"-=3.6%"}, "fast")
+}
+
+function specialAnimation (){
+    function remakeInvisible(){
+        usersPokemon.attack2Icon.addClass("invisible");
+    }
+    usersPokemon.attack2Icon.addClass(position)
+    usersPokemon.attack2Icon.removeClass("invisible")
+    setTimeout(remakeInvisible, 1000)
+}
+
+function opponentAttackAnimation (){
+    currentOpponent.icon.animate({left:"-=3.6%"}, "fast")
+    currentOpponent.icon.animate({left:"+=3.6%"}, "fast")
+}
+
+function opponentSpecialAnimation (){
+    function remakeInvisible(){
+        currentOpponent.attack2Icon.addClass("invisible");
+    }
+    currentOpponent.attack2Icon.addClass(positionOpponent)
+    currentOpponent.attack2Icon.removeClass("invisible")
+    setTimeout(remakeInvisible, 1000)
+}
+
 
 function opponentAttack() {
     var attackPick = Math.floor(Math.random() * 2)
     if (attackPick === 0) {
+        opponentAttackAnimation()
         usersPokemon.hp -= currentOpponent.attack;
         $("#gameText").prepend(currentOpponent.name + " used " + currentOpponent.attack1 + "<br>");
         $("#pokemonHP").prepend(usersPokemon.name + " HP: " + usersPokemon.hp);
     } if (attackPick === 1) {
-        if (((usersPokemon === bulbasaur) && (currentOpponent === charmander)) || ((usersPokemon === charmander) && (currentOpponent === squirtle)) || ((usersPokemon === squirtle) && (currentOpponent === bulbasaur || pikachu))) {
+        opponentSpecialAnimation();
+        if((currentOpponent===charmander)&&(usersPokemon===squirtle)){usersPokemon.hp -= currentOpponent.special;
+        } else if (((usersPokemon===squirtle)&&(currentOpponent===bulbasaur||pikachu))||((usersPokemon===bulbasaur)&&(currentOpponent===charmander))||((usersPokemon===charmander)&&(currentOpponent===squirtle))){
             usersPokemon.hp -= 2 * currentOpponent.special;
         } else {
             usersPokemon.hp -= currentOpponent.special;}
@@ -134,7 +189,7 @@ function checkForKO() {
             $(currentOpponent.icon).animate({ opacity: 0 });
             alert("Victory!  You have been fully healed.");
             alert("Congratulations!  You have grown a level.");
-
+            $("#gameText").html("");
             usersPokemon.attack++;
             usersPokemon.special++;
             if (usersPokemon === bulbasaur) {
@@ -151,6 +206,7 @@ function checkForKO() {
             }
             $("#pokemonHP").html(usersPokemon.name + " HP: " + usersPokemon.hp);
             inBattle = false;
+            usersPokemon.icon.animate({left:"+=8.6%"}, "normal")
         }
     }
 }
@@ -178,25 +234,31 @@ $(document).keyup(function (e) {
 });
 //attacking
 $(document).keyup(function (e) {
-    if (inBattle === true) {
-        $("#currentOpponentHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + " HP: " + currentOpponent.hp);
+    if ((inBattle === true)&&($("#thundershock").hasClass("invisible"))&&
+    ($("#vinewhip").hasClass("invisible"))&&
+    ($("#bubble").hasClass("invisible"))&&
+    ($("#ember").hasClass("invisible")))
+    {
         if (e.key === "a") {
             currentOpponent.hp -= usersPokemon.attack;
             $("#gameText").html("");
             $("#gameText").prepend(usersPokemon.name + " used " + usersPokemon.attack1 + "<br>");
-            $("#pokemonHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "'s health = " + currentOpponent.hp);
+            attackAnimation();
+            $("#pokemonHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "HP = " + currentOpponent.hp);
             opponentAttack();
-            checkForKO();
+            setTimeout(checkForKO, 1000)
         } if (e.key === "s") {
-            if (((usersPokemon === bulbasaur || pikachu) && (currentOpponent === squirtle)) || ((usersPokemon === charmander) && (currentOpponent === bulbasaur)) || ((usersPokemon === squirtle) && (currentOpponent === charmander))) {
+            if((usersPokemon===charmander)&&(currentOpponent===squirtle)){currentOpponent.hp -= usersPokemon.special;
+            } else if (((usersPokemon === bulbasaur || pikachu) && (currentOpponent === squirtle)) || ((usersPokemon === charmander) && (currentOpponent === bulbasaur)) || ((usersPokemon === squirtle) && (currentOpponent === charmander))) {
                 currentOpponent.hp -= usersPokemon.special*2;
             } else {
                 currentOpponent.hp -= usersPokemon.special;}
                 $("#gameText").html("");
                 $("#gameText").prepend(usersPokemon.name + " used " + usersPokemon.attack2 + "<br>");
-                $("#pokemonHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "'s health = " + currentOpponent.hp);
+                specialAnimation();
+                $("#pokemonHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "HP = " + currentOpponent.hp);
                 opponentAttack();
-                checkForKO();
+                setTimeout(checkForKO, 1000)
             }
         }
     }
@@ -267,23 +329,3 @@ $("#pikachu").click(function () {
         dispersePokemon();
     }
 });
-
-
-
-//get in battle
-//perform battle
-    //attacks
-    //effects
-    //hp changes
-    //disappear
-//win
-//lose
-
-
-//tackle:7
-//scratch: 8
-//vinewhip:8
-//bubble: 7
-//ember: 7
-//quick attack: 8
-//thundershock: 8

@@ -47,14 +47,49 @@ position: relative;
     left:60.2%;
     top:50%;
     margin-left: .75%;
-    -moz-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        filter: FlipH;
-        -ms-filter: "FlipH";
 }
 
+.flipped {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+
+
+.position1 {
+    top: 12.5%;
+    left: 51%;
+}
+
+.position3 {
+    top: 37.5%;
+    left: 25.4%;
+}
+
+.position2 {
+    top: 75%;
+    left: 35%;
+}
+
+.positionOpponent1{
+    top: 12.5%;
+    left: 42.4%;
+}
+
+
+.positionOpponent3{
+    top: 37.5%;
+    left: 16.8%;
+}
+
+.positionOpponent2{
+    top: 75%;
+    left: 26.4%;
+}
 #squirtle {
     width:12%;
     height: 17%;
@@ -67,6 +102,17 @@ position: relative;
 .character, #textBoxImg, #textBox {
     position:absolute;
     
+}
+
+.attack {
+    position: absolute;
+    z-index: 5;
+    width: 7%;
+    height: 15%
+}
+
+.invisible {
+    opacity:0;
 }
 
 #textBox, #textBoxImg {
