@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RPG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+
+</head>
+
+<body>
+    <div id="checkerBoard">
+        <img src="assets/images/background2.jpg" alt="checkerboard" id="checkerBoardImg">
+        <img src="assets/images/charmander.png" alt="charmander" id="charmander" class="character">
+        <img src="assets/images/bulbasaur.png" alt="bulbasaur" id="bulbasaur" class="character">
+        <img src="assets/images/squirtle.png" alt="squirtle" id="squirtle" class="character">
+        <img src="assets/images/pikachu.png" alt="pikachu" id="pikachu" class="character">
+        <img src="assets/images/textBox.png" alt="textBox" id="textBoxImg">
+        <div id="textBox">
+            <h1 class="pokemon">Pokemon RPG</h1>
+            <p>Click on a Pokemon to select it as your character and start a game.</p>
+            <p>Use the arrow keys to move your Pokemon.  </p>
+            <p>Move to another Pokemon to Battle it.  </p>
+            <p>When in battle, press "a" or "s" to use the corresponding attack.</p>
+            <hr>
+            <h3 id="pokemonHP"><span id="currentOpponentHP"></span></h3>
+            <p id="attacks"></p>
+            <h1 class="pokemon">Game Text</h1>
+            <p id="gameText"></p>
+        </div>
+        
+        
+    </div>
+
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/game.js"></script>
+</body>
+
+</html>
