@@ -182,6 +182,7 @@ $(document).keyup(function (e) {
         $("#currentOpponentHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + " HP: " + currentOpponent.hp);
         if (e.key === "a") {
             currentOpponent.hp -= usersPokemon.attack;
+            $("#gameText").html("");
             $("#gameText").prepend(usersPokemon.name + " used " + usersPokemon.attack1 + "<br>");
             $("#pokemonHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "'s health = " + currentOpponent.hp);
             opponentAttack();
@@ -191,6 +192,7 @@ $(document).keyup(function (e) {
                 currentOpponent.hp -= usersPokemon.special*2;
             } else {
                 currentOpponent.hp -= usersPokemon.special;}
+                $("#gameText").html("");
                 $("#gameText").prepend(usersPokemon.name + " used " + usersPokemon.attack2 + "<br>");
                 $("#pokemonHP").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + currentOpponent.name + "'s health = " + currentOpponent.hp);
                 opponentAttack();
