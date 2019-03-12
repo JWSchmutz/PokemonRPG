@@ -1,146 +1,266 @@
-body {
-    background-image: url("../images/background.jpg");
-    background-size: cover;
-}
-
-#checkerBoard{
-    position:fixed;
-    top:5%;
-    bottom: 5%;
-    left: 5%;
-    right:5%;   
-}
+/*  ======== pokemon font ======== */
 
 @font-face {
-    font-family: "pokemon";
-    src: url(Pokemon\ Solid.ttf) format("truetype");
+  font-family: "pokemon";
+  src: url(pokemon-solid.ttf) format("truetype");
 }
-.pokemon { 
-    font-family: "pokemon", Verdana, Tahoma;
+.pokemon {
+  font-family: "pokemon", Verdana, Tahoma;
+  color: yellow;
+  text-shadow: -5px 0 rgb(52, 52, 143), 0 5px rgb(52, 52, 143),
+    2px 0 rgb(52, 52, 143), 0 -2px rgb(52, 52, 143);
 }
 
-#checkerBoardImg{
-height: 100%;
-width: 100%;
-position: relative;
-opacity:.8;
+.pokemon-small {
+  font-family: "pokemon", Verdana, Tahoma;
+  color: yellow;
+  text-shadow: -2px 0 rgb(52, 52, 143), 0 2px rgb(52, 52, 143),
+    2px 0 rgb(52, 52, 143), 0 -2px rgb(52, 52, 143);
+  font-size: 0.75rem;
+}
+
+/* ======== background ======== */
+
+body {
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+}
+
+#checkerBoard {
+  position: fixed;
+  top: 5%;
+  bottom: 5%;
+  left: 5%;
+  right: 5%;
+}
+
+#checkerBoardImg {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  opacity: 0.8;
+}
+
+/* ======== Pokemon sprites ======== */
+
+.character {
+  width: 8.6%;
+  height: 12.5%;
 }
 
 #bulbasaur {
-    width:8.6%;
-    height: 12.5%;
-    left:43%;
-    top:25%;
+  left: 43%;
+  top: 25%;
 }
 
 #charmander {
-    width:12%;
-    height: 17%;
-    left:60.2%;
-    top:25%;
-    margin-top:-1.5%;
-    margin-left: -1.5%;
+  left: 60.2%;
+  top: 25%;
 }
 
 #pikachu {
-    width:6.6%;
-    height: 11%;
-    left:60.2%;
-    top:50%;
-    margin-left: .75%;
+  left: 60.2%;
+  top: 50%;
 }
+
+#squirtle {
+  left: 43%;
+  top: 50%;
+}
+
+/*  ======== flipping the sprites as needed  ========  */
 
 .flipped {
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  filter: drop-shadow(2px 2px 7px gold);
 }
 
-
+/*  ======== where the users pokemon is placed during battle  ========  */
 
 .position1 {
-    top: 12.5%;
-    left: 51%;
-}
-
-.position3 {
-    top: 37.5%;
-    left: 25.4%;
+  top: 12.5%;
+  left: 51%;
 }
 
 .position2 {
-    top: 75%;
-    left: 35%;
+  top: 75%;
+  left: 35%;
 }
 
-.positionOpponent1{
-    top: 12.5%;
-    left: 42.4%;
+.position3 {
+  top: 37.5%;
+  left: 25.4%;
 }
 
+/*  ======== where the users pokemon is placed during battle  ========  */
 
-.positionOpponent3{
-    top: 37.5%;
-    left: 16.8%;
-}
-
-.positionOpponent2{
-    top: 75%;
-    left: 26.4%;
-}
-#squirtle {
-    width:12%;
-    height: 17%;
-    left:43%;
-    top:50%;
-    margin-top:-1.5%;
-    margin-left: -1.5%;   
+.positionOpponent1 {
+  top: 12.5%;
+  left: 42.4%;
 }
 
-.character, #textBoxImg, #textBox {
-    position:absolute;
-    
+.positionOpponent2 {
+  top: 75%;
+  left: 26.4%;
 }
+
+.positionOpponent3 {
+  top: 37.5%;
+  left: 16.8%;
+}
+
+.character,
+#textBoxImg,
+#textBox {
+  position: absolute;
+}
+
+/*  ======== styling for special attack animations  ========  */
 
 .attack {
-    position: absolute;
-    z-index: 5;
-    width: 7%;
-    height: 15%
+  position: absolute;
+  z-index: 5;
+  width: 7%;
+  height: 15%;
 }
+
+/*  ======== invisibility as needed  ========  */
 
 .invisible {
-    opacity:0;
+  opacity: 0;
 }
 
-#textBox, #textBoxImg {
-    width:31.7%;
-    height:100%;
-    top:0%;
-    right: 0%;
-    overflow: hidden;
+.removed {
+  display: none;
 }
 
-h1{
-    text-align: center;
+/*  ======== text styling  ========  */
+
+#textBox,
+#textBoxImg {
+  width: 31.7%;
+  height: 100%;
+  top: 0%;
+  right: 0%;
+  overflow: hidden;
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 h3 {
-    padding: 2%;
+  padding: 0% 7%;
+}
+
+h4 {
+  margin: 0px;
+}
+
+#attacks {
+  padding: 0% 7%;
 }
 
 p {
-
-    padding-left: 3%;
+  padding: 0% 7%;
+  font-family: Verdana, Tahoma;
+  font-size: 1rem;
 }
 
-hr {
-    margin: 3%
+.hp-bar {
+  text-align: center;
 }
 
+.hp-span {
+  float: left;
+  margin-left: 10px;
+}
+
+/*  ======== health bars  ========  */
+#pokemonHP,
+#opponentHP {
+  height: 5%;
+  border: 3px solid black;
+  border-radius: 3px;
+  margin: 2% 7%;
+}
+
+#current-hp {
+  background-color: green;
+  height: 100%;
+}
+
+#opponent-current-hp {
+  background-color: red;
+  height: 100%;
+}
+
+/*  ======== attack buttons  ========  */
+
+.attack-button {
+  width: 45%;
+  margin: 0% 2%;
+}
+
+/*  ======== modal and its features  ========  */
+
+.modal {
+  background: url(../images/modal.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: fixed;
+  border-radius: 10px;
+  top: 20%;
+  bottom: 20%;
+  left: 15%;
+  right: 15%;
+  z-index: 13;
+  justify-content: space-around;
+}
+
+.grayout {
+  position: fixed;
+  border-radius: 10px;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: darkgray;
+  opacity: 0.8;
+  z-index: 12;
+}
+
+.modal-item {
+  text-align: center;
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+/* buttons */
+
+button {
+  background-color: rgb(119, 142, 255);
+  border: solid 3px yellow;
+  width: 25%;
+}
+
+.button-text {
+  margin-top: -0.03%;
+}
 
 /* 
 vertical:12.5=1, 25=2, 37.5=3, 50=4, 62.5=5, 75=6, 87.5=7,100=8
